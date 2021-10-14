@@ -19,7 +19,7 @@ Red social destinada a usuarios interesados en ver y compartir contenido de sus 
 
 - Prototipo de Inicio de sesión
 
-![Sketch](./src/imagenes/protomovil.png)
+![Sketch](./src/imagenes/protoMovil.png)
 - Prototipo de Muro 
 
 ![Sketch](./src/imagenes/protoMovilHome.png)
