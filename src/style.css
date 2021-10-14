@@ -35,7 +35,7 @@
   }
   .loginPage{
      padding-top: 1em;
-}
+  }
   #banner {
       display: flex;
       align-items: center;
@@ -54,7 +54,6 @@
       box-sizing: border-box;
       border-radius: 15px;
       text-align: center;
-  
   }
   
   #formContainer{
@@ -70,7 +69,7 @@
       background: #1EBFD1;
       border-radius: 10px;
       width: 125px;
-      height: 29px;
+      height: 30px;
       font-family: "Fredoka One",cursive;
       color: #FFF9F9;
       font-size: 16px;
@@ -99,8 +98,6 @@
       flex-direction: row-reverse;
       letter-spacing: .5px;
   }
-  
-  
   
   #lastContainer{
       display: flex;
@@ -144,12 +141,13 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-evenly;
-      
   }
+
   #logoWall{
       Width: 79px;
       Height: 74px;
   }
+
   #welcomeMessage{
       display: flex;
       align-content: center;
@@ -159,14 +157,15 @@
       color: #FF5A5C;
       letter-spacing: .5px;
   }
+
   #postContainer{
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
       width: 95%;
       margin-bottom: 25px;
-  
   }
+
   #postInput{
       font-size: 18px;
       width: 86%;
@@ -181,8 +180,8 @@
       border: 2px solid #1EBFD1;
       box-sizing: border-box;
       border-radius: 15px;
-  
   }
+
   #yellowDog{
       Width: 43px;
       Height: 43px;
@@ -222,7 +221,6 @@
       flex-direction: row
   }
   
-  
   #post, .editPost{
       background-color:#D3F5FF;;
       margin-top: 2%;
@@ -233,16 +231,16 @@
       border: none;
       font-family:'Montserrat', sans-serif;
       letter-spacing: .5px;
-      font-size: 18px;   
-     
+      font-size: 18px;     
   }
+
   #homePage{
       flex-direction: column;
       display:flex;
       align-items: center;
       width: 100%;
-
   }
+
   #recentPostDiv{
    padding: 1%;
    padding-left: 3%;
@@ -254,6 +252,7 @@
    width:100%;
    align-items: baseline;
   }
+
   #posts{
       display:flex;
       flex-direction: column;
@@ -263,10 +262,12 @@
   }
   #addImg{
     width: 158px;
-    height: 71px;
+    height: 54px;
     border-radius: 0px;
     border: none;
+    visibility: hidden;
   }
+
   #recentPost{
       font-family:'Montserrat', sans-serif;
       margin: 2px;
@@ -274,6 +275,7 @@
       text-align: center;
       font-size: 18px;
   }
+
   #close, .editClose{
       font-family: 'Fredoka one', sans-serif;
       color:#FF5A5C;
@@ -281,6 +283,7 @@
       margin-right: 2%;
       margin-bottom: 10px;
   }
+
   #share{
       margin-top: 10%;
       border:none;
@@ -290,13 +293,18 @@
       color:white ;
       letter-spacing: 0.5px;
       font-size: 16px;
-      width: 80px;
-      height: 30px
+      width: 7em;
+      height: 4em;
+      margin: 0px;
   }
+
   #date{
       font-family: 'Montserrat';
       font-weight: 600;
       font-size: 12px;
+  }
+  .paragCounter{
+    font-family: 'Montserrat';
   }
   
   #edit{
@@ -307,21 +315,20 @@
      justify-content: flex-start;
      margin-left: 5em;
   }
-  
+
   #deletes{
       border:none;
       font-family: 'Fredoka One', cursive;
       background: none;
       color:#C72426;
       margin-left: 2em;
-
-  
   }
-  
+
   #divButtons{
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-evenly;
+      align-items: center;
   }
   
   #userMail, .confirmText{
@@ -330,18 +337,19 @@
       color: #662A08;    
       letter-spacing: .5px;
   }
+
   #wallPaw{
       display: none;
   }
+
   @media screen and (min-width: 850px ){
-  
       #root{
           display: flex;
           justify-content: flex-end;
           width: 100%;
           
       }
-      .loginPage{
+      .loginPage, .registerPage{
           justify-content: flex-end;
           width: 39em;
           height: 60em;
@@ -365,27 +373,32 @@
       #signIn{
           width: 180px;
           height: 55px;
-          font-size: 20px;
+          font-size: 22px;
       }
       #signInGoogle{
           width: 311px;
           height: 55px;
-          font-size: 20px;
+          font-size: 22px;
           background: #FF5A5C;
       }
       #registerIn{
-          font-size: 20px;
+          font-size: 22px;
          
       }
       #routeButton{
           font-size: 21px;
           color: #C72426;
       }
-      #loginContainer{
+      #loginContainer, #registerContainer{
           display: flex;
+          width: 100%
       }
       #wallPaw{
+          margin-left: 2em;
           display: block;
+          width: 60%;
+          display: flex;
+          flex-direction: column
       }
       #spam{
           font-family:'Montserrat', sans-serif;

@@ -1,7 +1,6 @@
 // Este es el punto de entrada de tu aplicacion
 import { login } from './components/login.js';
 import { register } from './components/register.js';
-// eslint-disable-next-line import/named
 import { home } from './components/home.js';
 import { stateCheck } from './firebaseAuth.js';
 
@@ -34,12 +33,5 @@ stateCheck().onAuthStateChanged((user) => {
     onNavigate('/');
   }
 });
-
-window.onpopstate = () => {
-  while (routesDiv.firstChild) {
-    routesDiv.removeChild(routesDiv);
-  }
-  routesDiv.appendChild(routes[window.location.pathname]());
-};
 
 routesDiv.appendChild(component());

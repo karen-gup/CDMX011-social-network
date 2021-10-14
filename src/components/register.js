@@ -1,18 +1,21 @@
-// eslint-disable-next-line import/no-cycle
-// eslint-disable-next-line import/no-cycle
 import { allFunctions } from '../lib/validFunc.js';
 import { authUser, gmailAuth } from '../firebaseAuth.js';
 import { onNavigate } from '../main.js';
 
 export const register = () => {
   const registerPage = document.createElement('div');
-  const htmlNodes = `<div class="registerPage">
+  registerPage.setAttribute('id', 'registerContainer');
+  const htmlNodes = `<div id="wallPaw">
+  <img class="pawTop" src="./imagenes/pawsTop.png">
+  <p id="spam">El mejor sitio para <br> presumir a <br>tus mascotas</p>
+  </div>
+  <div class="registerPage">
   <header id="banner">
   <img id="logo" src="./imagenes/Imagen1.png">
   <h1 id="petFriends">Pet Friends</h1>
   </header>
   <form id="formContainer" action="#">
-  <input id="email" type="email" placeholder="Ingresa tu correo electrónico" autofocus required="required">
+  <input id="email" type="email" placeholder="Ingresa tu correo electrónico" required="required">
   <h5 id="invalidEmail"></h5>
   <div class="eyeContainer">
   <input id="password" type="password" placeholder="Crea tu contraseña" required="required">
@@ -50,12 +53,10 @@ export const register = () => {
       printEmail = saveEmail;
     }
 
-    if (validPasswordFunc === false) {
-    // eslint-disable-next-line max-len
-    //  registerPage.querySelector('#invalidPassword').innerHTML = 'Las contraseñas no coinciden o tienen menos de 6 caracteres';
-    } else {
+    if (validPasswordFunc !== false) {
       printPassword = savedPassword;
     }
+
     authUser(printEmail, printPassword)
       .then(() => onNavigate('/home'))
       .catch((error) => {

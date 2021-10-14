@@ -1,8 +1,6 @@
 import { onNavigate } from '../main.js';
 import { allFunctions } from '../lib/validFunc.js';
-import {
-  signIn, gmailAuth,
-} from '../firebaseAuth.js';
+import { signIn, gmailAuth } from '../firebaseAuth.js';
 
 export const login = () => {
   const loginPage = document.createElement('div');
@@ -10,12 +8,12 @@ export const login = () => {
   const htmlLogin = `<div id="wallPaw">
   <img class="pawTop" src="./imagenes/pawsTop.png">
   <p id="spam">El mejor sitio para <br> presumir a <br>tus mascotas</p>
-  <img class="pawButton" src="./imagenes/pawsButton.png"></div>
+  </div>
   <div class="loginPage">
   <header id="banner"><img id="logo" src="./imagenes/Imagen1.png">
   <h1 id="petFriends">Pet Friends</h1></header>
   <form id="formContainer">
-  <input id="email" placeholder="Correo electrónico" autofocus>
+  <input id="email" type="email" placeholder="Ingresa tu correo electrónico" required="required">
   <h5 id="invalidEmail"></h5>
   <div class="eyeContainer">
   <input id="password" type="password" placeholder="Contraseña"  required="required">
@@ -48,7 +46,6 @@ export const login = () => {
     signIn(printEmail, savedPassword)
       .then(() => {
         onNavigate('/home');
-        console.log('Estas logueada');
       })
       .catch((error) => {
         const errorMessage = error.message;

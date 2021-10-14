@@ -52,19 +52,24 @@ export const logOut = (onNavigate) => firebase.auth().signOut()
 // firestore
 export const db = firebase.firestore();
 
-export const postInFirestore = (post, user, date) => db.collection('posts').add({
-  post, user, date,
+export const postInFirestore = (post, user, date, like) => db.collection('posts').add({
+  post,
+  user,
+  date,
+  like,
 });
 
 export const updatePost = (callback) => db.collection('posts').onSnapshot(callback);
 
 export const deletePost = (id) => db.collection('posts').doc(id).delete();
 
-export const getTaskForEdit = (id) => db.collection('posts').doc(id).get();
-
-export const printPostFromFirestore = () => db.collection('posts').get();
+export const getPost = (id) => db.collection('posts').doc(id).get();
 
 export const editPost = (id, post) => db.collection('posts').doc(id).update({ post });
+
+export const likePost = (id, like) => db.collection('posts').doc(id).update({ like: firebase.firestore.FieldValue.arrayUnion(like) });
+
+export const unLikePost = (id, like) => db.collection('posts').doc(id).update({ like: firebase.firestore.FieldValue.arrayRemove(like) });
 
 // storage
 export const storage = firebase.storage();
@@ -72,3 +77,5 @@ export const storage = firebase.storage();
 export const storageRef = (postImg, img) => firebase.storage().ref(`/imgPost/${postImg.name}`).put(img).then(() => {
   console.log('Uploaded a blob or file!');
 });
+
+export const storageDown = (postImg) => firebase.storage().ref(`/imgPost/${postImg.name}`).getDownloadURL();

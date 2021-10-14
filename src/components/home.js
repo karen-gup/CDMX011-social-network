@@ -2,18 +2,14 @@
 import { onNavigate } from '../main.js';
 import { allFunctions } from '../lib/validFunc.js';
 import {
-  logOut, getUser, postInFirestore, updatePost, deletePost, stateCheck,
-  getTaskForEdit, editPost, storageRef,
+  logOut, getUser, postInFirestore, updatePost, deletePost,
+  getPost, editPost, unLikePost, likePost,
 } from '../firebaseAuth.js';
 
 export const home = () => {
   let userEmail = getUser();
   userEmail !== null ? userEmail = userEmail.email : userEmail = '';
-
   const homePage = document.createElement('div');
-
-  stateCheck(homePage);
-
   homePage.setAttribute('id', 'homePage');
   const htmlNodes = `<header id = "wallBanner" >
   <img id="logoWall" src="./imagenes/Imagen1.png">
@@ -56,22 +52,20 @@ export const home = () => {
   // Botón para publicar el post
   homePage.querySelector('#share').addEventListener('click', () => {
     modal.style.visibility = 'hidden';
-    // Sección de imagen
-    const imgPost = homePage.querySelector('#addImg').files[0];
-    storageRef(imgPost, imgPost.name);
-
     //  sección de comentario
     const postPublish = homePage.querySelector('#post').value;
     const date = new Date();
     const postDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} a las ${date.getHours()}:${date.getMinutes()}`;
-    if (allFunctions.validPost(postPublish) === false) {
-      alert('No has publicado un post aún');
-    } else {
-      postInFirestore(postPublish, userEmail, postDate);
-    }
+    const likeUser = [];
+    allFunctions.validPost(postPublish) === false ? alert('No has publicado un post aún') : postInFirestore(postPublish, userEmail, postDate, likeUser);
+    // Sección de imagen
+    // const imgPost = homePage.querySelector('#addImg').files[0];
+    // storageRef(imgPost, imgPost.name);
+    // storageDown(imgPost);
+    // console.log(imgPost);
   });
 
-  // Imprime los post ya existentes en pantalla
+  // Imprime los post en pantalla
   updatePost((snapshot) => {
     postDivPublish.innerHTML = '';
     snapshot.forEach((doc) => {
@@ -82,45 +76,45 @@ export const home = () => {
           <p id="recentPost">${doc.data().post}</p>
           ${userEmail === doc.data().user
     ? `<div id= "divButtons">
-          <img id="img"  class= "like" src="./imagenes/patitaGris.png">
+          <img id="img" data-id= ${comentId} class= "like" ${doc.data().like.includes(userEmail) ? 'src= "./imagenes/patitaColor.png"' : 'src= "./imagenes/patitaGris.png"'}>
+          <p id="paragCounter" class="paragCounter">${doc.data().like.length}</p>
           <button id= "edit" class= "btnEdit" data-id= ${comentId} >Editar</button>
-          <div class="editBackModal">
-          <div class="editModal">
-          <h3 class="editClose">x</h3>
-          <textarea class="editPost"></textarea>
-          <button id="share" class="save">Guardar</button>
-          </div>
-          </div>
-       <button id= "deletes" class="btndeletes" data-id= ${comentId} > Eliminar</button> 
+            <div class="editBackModal">
+               <div class="editModal">
+                  <h3 class="editClose">x</h3>
+                  <textarea class="editPost"></textarea>
+                  <button id="share" class="save">Guardar</button>
+               </div>
+            </div>
+          <button id= "deletes" class="btndeletes" data-id= ${comentId}>Borrar</button> 
           <div class="deleteBackModal">
-          <div class="deleteModal" >
-          <h2 class= "confirmText">¿Estás segur@ que deseas eliminar este post? </h2>
-          <button class="si">Si</button>
-          <button class="no" >No</button>
-          </div>
+            <div class="deleteModal" >
+              <h2 class= "confirmText">¿Estás segur@ que deseas eliminar este post? </h2>
+              <button class="si">Si</button>
+              <button class="no" >No</button>
+             </div>
           </div>`
-    : '<img id="img"  class= "like" src="./imagenes/patitaGris.png">'}
-          </div>
+    : `<div id= "divButtons">
+    <img id="img" data-id= ${comentId} class= "like" ${doc.data().like.includes(userEmail) ? 'src= "./imagenes/patitaColor.png"' : 'src= "./imagenes/patitaGris.png"'}>
+    <p id="paragCounter" class="paragCounter">${doc.data().like.length}<p>`}
+            </div>
           </div>`;
 
       postDivPublish.innerHTML += htmlPostsPublished;
 
       // Función para manipular el like
       const colorPaw = postDivPublish.querySelectorAll('.like');
-
       colorPaw.forEach((postLike) => {
-        postLike.addEventListener('click', (e) => {
-          if (e.target.getAttribute('src') === './imagenes/patitaGris.png') {
-            postLike.setAttribute('src', './imagenes/patitaColor.png');
-          } else {
-            postLike.setAttribute('src', './imagenes/patitaGris.png');
-          }
+        postLike.addEventListener('click', async (e) => {
+          const likeId = await getPost(e.target.dataset.id);
+          const arrayLike = likeId.data().like;
+          const idPost = e.target.dataset.id;
+          !arrayLike.includes(userEmail) ? likePost(idPost, userEmail)
+            : unLikePost(idPost, userEmail);
         });
       });
-
       // Botón para eliminar post
       const deletebtn = postDivPublish.querySelectorAll('.btndeletes');
-
       const deleteModal = postDivPublish.querySelector('.deleteBackModal');
       deletebtn.forEach((btnDelete) => {
         btnDelete.addEventListener('click', (f) => {
@@ -144,13 +138,11 @@ export const home = () => {
       btnEdit.forEach((edtPost) => {
         edtPost.addEventListener('click', async (event) => {
           postEditModal.style.visibility = 'visible';
-          const docForEdit = await getTaskForEdit(event.target.dataset.id);
-          editedPost.value = docForEdit.data().post;
-          // console.log(docForEdit.data());
-          console.log(docForEdit.id);
+          const editId = await getPost(event.target.dataset.id);
+          editedPost.value = editId.data().post;
           postEditModal.addEventListener('click', (e) => {
             if (e.target.classList.contains('save')) {
-              editPost(docForEdit.id, editedPost.value);
+              editPost(editId.id, editedPost.value);
               postEditModal.style.visibility = 'hidden';
             }
             if (e.target.classList.contains('editClose')) {

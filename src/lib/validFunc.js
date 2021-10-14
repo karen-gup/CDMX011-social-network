@@ -7,12 +7,12 @@ export const allFunctions = {
 
   // eslint-disable-next-line consistent-return
   validPassword(password, confirmPassword) {
-    if (password.length < 5) {
+    if (password.length < 5 || password !== confirmPassword) {
       return false;
     }
-    if (password !== confirmPassword) {
-      return false;
-    }
+    // if (password !== confirmPassword) {
+    //   return false;
+    // }
   },
 
   validPost(post) {
