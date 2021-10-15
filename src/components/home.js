@@ -75,9 +75,12 @@ export const home = () => {
           <p id="date">${doc.data().date}</p>
           <p id="recentPost">${doc.data().post}</p>
           ${userEmail === doc.data().user
-    ? `<div id= "divButtons">
-          <img id="img" data-id= ${comentId} class= "like" ${doc.data().like.includes(userEmail) ? 'src= "./imagenes/patitaColor.png"' : 'src= "./imagenes/patitaGris.png"'}>
-          <p id="paragCounter" class="paragCounter">${doc.data().like.length}</p>
+    ? `<div id="options">
+    <div id="like-container">
+    <img id="img" data-id= ${comentId} class= "like" ${doc.data().like.includes(userEmail) ? 'src= "./imagenes/patitaColor.png"' : 'src= "./imagenes/patitaGris.png"'}>
+    <p id="paragCounter" class="paragCounter">${doc.data().like.length}</p>
+    </div>
+        <div id= "divButtons">
           <button id= "edit" class= "btnEdit" data-id= ${comentId} >Editar</button>
             <div class="editBackModal">
                <div class="editModal">
@@ -93,10 +96,12 @@ export const home = () => {
               <button class="si">Si</button>
               <button class="no" >No</button>
              </div>
+          </div>
           </div>`
-    : `<div id= "divButtons">
+    : `<div id="like-container">
     <img id="img" data-id= ${comentId} class= "like" ${doc.data().like.includes(userEmail) ? 'src= "./imagenes/patitaColor.png"' : 'src= "./imagenes/patitaGris.png"'}>
-    <p id="paragCounter" class="paragCounter">${doc.data().like.length}<p>`}
+    <p id="paragCounter" class="paragCounter">${doc.data().like.length}</p>
+    </div>`}
             </div>
           </div>`;
 

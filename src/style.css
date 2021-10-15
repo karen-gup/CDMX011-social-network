@@ -68,8 +68,8 @@
       border:none;
       background: #1EBFD1;
       border-radius: 10px;
-      width: 125px;
-      height: 30px;
+      width: 130px;
+      height: 35px;
       font-family: "Fredoka One",cursive;
       color: #FFF9F9;
       font-size: 16px;
@@ -154,6 +154,7 @@
       font-family: 'Fredoka one', sans-serif;
       font-size: 18px;
       margin-top: 26px;
+      margin-bottom: 5px;
       color: #FF5A5C;
       letter-spacing: .5px;
   }
@@ -258,7 +259,7 @@
       flex-direction: column;
       align-content: center;
       width:90%;
-  
+      align-items: center
   }
   #addImg{
     width: 158px;
@@ -274,6 +275,9 @@
       font-style: normal;
       text-align: center;
       font-size: 18px;
+      font-weight: 700;
+      margin-top: 8px;
+      margin-bottom: 1em;
   }
 
   #close, .editClose{
@@ -302,6 +306,7 @@
       font-family: 'Montserrat';
       font-weight: 600;
       font-size: 12px;
+      color: #662A08
   }
   .paragCounter{
     font-family: 'Montserrat';
@@ -323,19 +328,28 @@
       color:#C72426;
       margin-left: 2em;
   }
-
+  #options{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
   #divButtons{
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-evenly;
       align-items: center;
+      margin-right: 2em;
   }
-  
+  #like-container{
+      display: flex;
+      align-items: center;
+  }
   #userMail, .confirmText{
       font-family: 'Fredoka one', sans-serif;
       font-size: 18px;
       color: #662A08;    
       letter-spacing: .5px;
+      margin-bottom: 3px
   }
 
   #wallPaw{
@@ -366,7 +380,7 @@
           height: 56.67px;
           border: 3px solid #1EBFD1;
       }
-      .openEye{
+      .openEye, .closeEye{
           right: 18px;
           margin-top: 2%;
       }
@@ -404,6 +418,7 @@
           font-family:'Montserrat', sans-serif;
           font-size: 60px;
           color: #732F3B;
+          margin-left: 2em
       }
       .pawTop{
       bottom: 0px;

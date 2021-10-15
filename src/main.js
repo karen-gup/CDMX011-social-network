@@ -24,14 +24,15 @@ export const onNavigate = (pathname) => {
   }
   routesDiv.appendChild(routes[pathname]());
 };
-const component = routes[window.location.pathname];
 
-stateCheck().onAuthStateChanged((user) => {
+const userPet = (user) => {
   if (user) {
     onNavigate('/home');
   } else {
     onNavigate('/');
   }
-});
+};
+stateCheck().onAuthStateChanged(userPet);
 
+const component = routes[window.location.pathname];
 routesDiv.appendChild(component());
