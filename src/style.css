@@ -356,7 +356,7 @@
       display: none;
   }
 
-  @media screen and (min-width: 850px ){
+  @media screen and (min-width: 1350px ){
       #root{
           display: flex;
           justify-content: flex-end;
